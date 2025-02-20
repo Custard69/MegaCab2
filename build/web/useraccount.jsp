@@ -19,6 +19,7 @@
             ${cus.id}
             ${cus.name}
             ${cus.email}
+            ${cus.NIC}
             ${cus.phone}
             ${cus.userName}
             ${cus.password}

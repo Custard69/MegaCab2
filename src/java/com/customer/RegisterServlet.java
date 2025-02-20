@@ -18,15 +18,16 @@ public class RegisterServlet extends HttpServlet {
         // Retrieve form parameters
         String name = request.getParameter("name");
         String email = request.getParameter("email");
+        String NIC = request.getParameter("NIC");
         String phone = request.getParameter("phone");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String role = "customer";
 
         // Database connection parameters
-        String url = "jdbc:mysql://localhost:3306/hotel";
+        String url = "jdbc:mysql://localhost:3306/mc";
         String user = "root";
-        String pass = "Smj139@1";
+        String pass = "admin";
         
         try {
             // Load MySQL JDBC Driver
@@ -36,14 +37,15 @@ public class RegisterServlet extends HttpServlet {
             Connection con = DriverManager.getConnection(url, user, pass);
 
             // Insert user details into the database
-            String sql = "INSERT INTO customer (name, email, phone, username, password, role) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO customer (name, email, NIC, phone, username, password, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, name);
             stmt.setString(2, email);
-            stmt.setString(3, phone);
-            stmt.setString(4, username);
-            stmt.setString(5, password);
-            stmt.setString(6, role);
+            stmt.setString(3, NIC);
+            stmt.setString(4, phone);
+            stmt.setString(5, username);
+            stmt.setString(6, password);
+            stmt.setString(7, role);
 
             int rowsInserted = stmt.executeUpdate();
             stmt.close();

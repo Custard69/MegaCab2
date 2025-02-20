@@ -15,9 +15,9 @@ public class CustomerDBUtil {
         
         //Create Db Connection
         
-        String url = "jdbc:mysql://localhost:3306/hotel";
+        String url = "jdbc:mysql://localhost:3306/mc";
         String user = "root";
-        String pass = "Smj139@1";
+        String pass = "admin";
         
         //Validate
         
@@ -27,19 +27,20 @@ public class CustomerDBUtil {
             
             Connection con = DriverManager.getConnection(url,user,pass);
             Statement stmt = con.createStatement();
-            String sql = "SELECT * FROM hotel.customer WHERE username='"+userName+"' AND password='"+password+"'";
+            String sql = "SELECT * FROM mc.customer WHERE username='"+userName+"' AND password='"+password+"'";
             ResultSet rs = stmt.executeQuery(sql);
             
             if(rs.next()){
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
                 String email = rs.getString(3);
-                String phone = rs.getString(4);
-                String userU = rs.getString(5);
-                String passU = rs.getString(6);
-                String role = rs.getString(7);
+                String NIC = rs.getString(4);
+                String phone = rs.getString(5);
+                String userU = rs.getString(6);
+                String passU = rs.getString(7);
+                String role = rs.getString(8);
                 
-                Customer c = new Customer(id,name,email,phone,userU,passU,role);
+                Customer c = new Customer(id,name,email,NIC,phone,userU,passU,role);
                 cus.add(c);
             }
             
