@@ -10,6 +10,7 @@
         <form action="reg" method="post">
             Name: <input type="text" name="name" required><br>
             Email: <input type="email" name="email" required><br>
+            NIC: <input type="text" name="NIC" required><br>
             Phone: <input type="text" name="phone" required><br>
             Username: <input type="text" name="username" required><br>
             Password: <input type="password" name="password" required><br>
