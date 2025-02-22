@@ -1,4 +1,4 @@
-package com.customer;
+ package com.customer.model;
 
 public class Customer {
     private int id;

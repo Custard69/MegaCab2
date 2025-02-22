@@ -1,4 +1,4 @@
-package com.customer;
+package com.customer.controller;
 
 import java.io.IOException;
 import java.sql.Connection;

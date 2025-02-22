@@ -1,5 +1,7 @@
-package com.customer;
+package com.customer.controller;
 
+import com.customer.dao.CustomerDBUtil;
+import com.customer.model.Customer;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -27,7 +29,7 @@ public class LoginServlet extends HttpServlet {
             
             //Check the role
             if(customer.getRole().equals("admin")){
-                response.sendRedirect("admindashboard.jsp");
+                response.sendRedirect("Admin/registerDriver.jsp");
             }else{
                 response.sendRedirect("useraccount.jsp");
             }
