@@ -25,6 +25,7 @@
             ${cus.password}
             
         </c:forEach>
+        <p> <a href="booking.jsp">Book a Cab</a></p>
         
     </body>
 </html>
