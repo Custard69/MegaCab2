@@ -12,6 +12,22 @@
         <servlet-name>RegisterDriverServlet</servlet-name>
         <servlet-class>com.customer.controller.admin.RegisterDriverServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteDriverServlet</servlet-name>
+        <servlet-class>com.customer.controller.admin.DeleteDriverServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateDriverServlet</servlet-name>
+        <servlet-class>com.customer.controller.admin.UpdateDriverServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DriverLoginServlet</servlet-name>
+        <servlet-class>com.customer.controller.driver.DriverLoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DriverLogoutServlet</servlet-name>
+        <servlet-class>com.customer.controller.driver.DriverLogoutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
         <url-pattern>/log</url-pattern>
@@ -32,6 +48,22 @@
     <servlet-mapping>
         <servlet-name>RegisterDriverServlet</servlet-name>
         <url-pattern>/RegisterDriverServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteDriverServlet</servlet-name>
+        <url-pattern>/DeleteDriverServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateDriverServlet</servlet-name>
+        <url-pattern>/UpdateDriverServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DriverLoginServlet</servlet-name>
+        <url-pattern>/DriverLoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DriverLogoutServlet</servlet-name>
+        <url-pattern>/DriverLogoutServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>

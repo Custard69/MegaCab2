@@ -59,4 +59,99 @@ public class DriverDAO {
         }
         return drivers;
     }
+    
+    // Delete a Driver
+        public static boolean deleteDriver(int driverId) {
+            boolean success = false;
+            try (Connection con = DatabaseUtil.getConnection();
+                 PreparedStatement pst = con.prepareStatement("DELETE FROM drivers WHERE id = ?")) {
+
+                pst.setInt(1, driverId);
+                success = pst.executeUpdate() > 0;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return success;
+        }
+
+        
+        
+                    // Update Driver Details
+            public static boolean updateDriver(Driver driver) {
+                boolean success = false;
+                try (Connection con = DatabaseUtil.getConnection();
+                     PreparedStatement pst = con.prepareStatement("UPDATE drivers SET name=?, email=?, phone=?, carType=?, licenseNumber=?, status=? WHERE id=?")) {
+
+                    pst.setString(1, driver.getName());
+                    pst.setString(2, driver.getEmail());
+                    pst.setString(3, driver.getPhone());
+                    pst.setString(4, driver.getCarType());
+                    pst.setString(5, driver.getLicenseNumber());
+                    pst.setString(6, driver.getStatus());
+                    pst.setInt(7, driver.getDriverId());
+
+                    success = pst.executeUpdate() > 0;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return success;
+            }
+
+            // Get Driver by ID
+            public static Driver getDriverById(int id) {
+                Driver driver = null;
+                try (Connection con = DatabaseUtil.getConnection();
+                     PreparedStatement pst = con.prepareStatement("SELECT * FROM drivers WHERE id=?")) {
+
+                    pst.setInt(1, id);
+                    ResultSet rs = pst.executeQuery();
+
+                    if (rs.next()) {
+                        driver = new Driver(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("email"),
+                            rs.getString("phone"),
+                            rs.getString("carType"),
+                            rs.getString("licenseNumber"),
+                            "",  // Password is not needed for editing
+                            rs.getString("status")
+                        );
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return driver;
+            }
+            
+            
+            
+            public static Driver authenticateDriver(String email, String password) {
+        Driver driver = null;
+        try (Connection con = DatabaseUtil.getConnection();
+             PreparedStatement pst = con.prepareStatement("SELECT * FROM drivers WHERE email=? AND password=?")) {
+
+            pst.setString(1, email);
+            pst.setString(2, password);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                driver = new Driver(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("email"),
+                    rs.getString("phone"),
+                    rs.getString("carType"),
+                    rs.getString("licenseNumber"),
+                    rs.getString("password"),
+                    rs.getString("status")
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return driver;
+    }
+
+
 }

@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
             
             //Check the role
             if(customer.getRole().equals("admin")){
-                response.sendRedirect("Admin/registerDriver.jsp");
+                response.sendRedirect("Admin/driverList.jsp");
             }else{
                 response.sendRedirect("useraccount.jsp");
             }
