@@ -1,4 +1,4 @@
- package com.customer.model;
+package com.customer.model;
 
 public class Customer {
     private int id;
@@ -10,18 +10,19 @@ public class Customer {
     private String password;
     private String role;
 
-    public Customer(int id, String name, String email,String NIC, String phone, String userName, String password, String role) {
+    public Customer(int id, String name, String email, String NIC, String phone, String userName, String password, String role) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.email = NIC;
+        this.NIC = NIC;  // ✅ Fixed NIC assignment
         this.phone = phone;
         this.userName = userName;
         this.password = password;
         this.role = role;
     }
 
-    public int getId() {
+    // ✅ Renamed to match your LoginServlet usage
+    public int getCustomerId() {
         return id;
     }
 
@@ -52,6 +53,4 @@ public class Customer {
     public String getRole() {
         return role;
     }
-    
-    
 }

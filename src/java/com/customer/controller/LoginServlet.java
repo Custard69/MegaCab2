@@ -26,11 +26,17 @@ public class LoginServlet extends HttpServlet {
             
             HttpSession session = request.getSession();
             session.setAttribute("cusDetails", cusDetails);
+            session.setAttribute("customerId", customer.getCustomerId()); // ✅ Store Customer ID
+            session.setAttribute("role", customer.getRole()); // ✅ Store Role
             
-            //Check the role
-            if(customer.getRole().equals("admin")){
+            // Debugging - Print session attributes
+            System.out.println("Customer ID stored in session: " + customer.getCustomerId());
+            System.out.println("Role stored in session: " + customer.getRole());
+
+            // Redirect based on role
+            if ("admin".equals(customer.getRole())) {
                 response.sendRedirect("Admin/driverList.jsp");
-            }else{
+            } else {
                 response.sendRedirect("useraccount.jsp");
             }
         } else {

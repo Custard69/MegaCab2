@@ -16,7 +16,7 @@
         
         <c:forEach var="cus" items="${cusDetails}">
             
-            ${cus.id}
+            ${cus.customerId}
             ${cus.name}
             ${cus.email}
             ${cus.NIC}
@@ -25,7 +25,7 @@
             ${cus.password}
             
         </c:forEach>
-        <p> <a href="booking.jsp">Book a Cab</a></p>
+        <p> <a href="customerBooking.jsp">Book a Cab</a></p>
         
     </body>
 </html>
