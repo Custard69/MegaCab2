@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 public class ConfirmBookingServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+
         int customerId = (int) session.getAttribute("customerId");
         String pickupLocation = request.getParameter("pickupLocation");
         String destination = request.getParameter("destination");
@@ -26,12 +27,14 @@ public class ConfirmBookingServlet extends HttpServlet {
         double fare = Double.parseDouble(request.getParameter("totalFare"));
 
         Booking booking = new Booking(customerId, pickupLocation, destination, carType, distance, fare, "Pending");
-        boolean isSaved = BookingDAO.saveBooking(booking);
 
-        if (isSaved) {
-            response.sendRedirect("userDashboard.jsp?success=Booking Confirmed");
+        boolean bookingSuccess = BookingDAO.saveBooking(booking);
+
+        if (bookingSuccess) {
+            session.setAttribute("bookingId", booking.getBookingId());
+            response.sendRedirect("requestingTrip.jsp"); // Redirect to trip loading page
         } else {
-            response.sendRedirect("bookingSummary.jsp?error=Failed to confirm booking");
+            response.sendRedirect("bookingSummary.jsp?error=Failed%20to%20confirm%20booking");
         }
     }
 }
