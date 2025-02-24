@@ -36,6 +36,14 @@
         <servlet-name>ConfirmBookingServlet</servlet-name>
         <servlet-class>com.customer.controller.ConfirmBookingServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CheckBookingStatusServlet</servlet-name>
+        <servlet-class>com.customer.controller.CheckBookingStatusServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AssignDriverServlet</servlet-name>
+        <servlet-class>com.customer.controller.admin.AssignDriverServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
         <url-pattern>/log</url-pattern>
@@ -80,6 +88,14 @@
     <servlet-mapping>
         <servlet-name>ConfirmBookingServlet</servlet-name>
         <url-pattern>/ConfirmBookingServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckBookingStatusServlet</servlet-name>
+        <url-pattern>/CheckBookingStatusServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AssignDriverServlet</servlet-name>
+        <url-pattern>/AssignDriverServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>

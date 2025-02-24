@@ -152,6 +152,50 @@ public class DriverDAO {
         }
         return driver;
     }
+            
+            
+    public static List<Driver> getAvailableDrivers(String carType) {
+    List<Driver> drivers = new ArrayList<>();
+    try (Connection con = DatabaseUtil.getConnection();
+         PreparedStatement pst = con.prepareStatement("SELECT * FROM drivers WHERE status = 'Available' AND carType = ?")) {
+        
+        pst.setString(1, carType);
+        try (ResultSet rs = pst.executeQuery()) {
+            while (rs.next()) {
+                drivers.add(new Driver(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("email"),
+                    rs.getString("phone"),
+                    rs.getString("carType"),  // Ensure correct column name
+                    rs.getString("licenseNumber"),
+                    rs.getString("password"),
+                    rs.getString("status")
+                ));
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return drivers;
+}
+
+    
+    
+    public static boolean updateDriverStatus(int driverId, String status) {
+        boolean success = false;
+        try (Connection con = DatabaseUtil.getConnection();
+             PreparedStatement pst = con.prepareStatement("UPDATE drivers SET status = ? WHERE id = ?")) {
+
+            pst.setString(1, status);
+            pst.setInt(2, driverId);
+
+            success = pst.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return success;
+    }
 
 
 }
