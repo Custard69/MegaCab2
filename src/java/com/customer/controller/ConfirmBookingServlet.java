@@ -19,7 +19,7 @@ public class ConfirmBookingServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        int customerId = (int) session.getAttribute("customerId");
+        int customerId = (int) session.getAttribute("customerId");  // Ensure 'customerId' is correctly set in session
         String pickupLocation = request.getParameter("pickupLocation");
         String destination = request.getParameter("destination");
         String carType = request.getParameter("carType");
@@ -28,13 +28,17 @@ public class ConfirmBookingServlet extends HttpServlet {
 
         Booking booking = new Booking(customerId, pickupLocation, destination, carType, distance, fare, "Pending");
 
-        boolean bookingSuccess = BookingDAO.saveBooking(booking);
+        boolean bookingSuccess = BookingDAO.saveBooking(booking);  // Save the booking and get the bookingId
 
         if (bookingSuccess) {
-            session.setAttribute("bookingId", booking.getBookingId());
-            response.sendRedirect("requestingTrip.jsp"); // Redirect to trip loading page
+            int bookingId = booking.getBookingId(); // Retrieve booking ID
+            session.setAttribute("bookingId", bookingId); // Store in session (optional)
+
+            // Redirect with bookingId as a URL parameter
+            response.sendRedirect("requestingTrip.jsp?bookingId=" + bookingId);
         } else {
             response.sendRedirect("bookingSummary.jsp?error=Failed%20to%20confirm%20booking");
         }
+
     }
 }

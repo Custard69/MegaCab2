@@ -11,8 +11,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <jsp:include page="customerDashboard.jsp" />
+
     </head>
     <body>
+    
         
         <c:forEach var="cus" items="${cusDetails}">
             

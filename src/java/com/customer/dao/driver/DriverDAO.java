@@ -198,4 +198,39 @@ public class DriverDAO {
     }
 
 
+    
+    public static Driver getAssignedDriver(int bookingId) {
+    Driver driver = null;
+
+    try (Connection con = DatabaseUtil.getConnection();
+         PreparedStatement pst = con.prepareStatement(
+             "SELECT d.id, d.name, d.email, d.phone, d.carType, d.licenseNumber, d.status " +
+             "FROM drivers d " +
+             "INNER JOIN bookings b ON d.id = b.driver_id " +
+             "WHERE b.booking_id = ?"
+         )) {
+
+        pst.setInt(1, bookingId);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            driver = new Driver(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("email"),
+                rs.getString("phone"),
+                rs.getString("carType"),
+                rs.getString("licenseNumber"),
+                "", // Password not needed
+                rs.getString("status")
+            );
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return driver;
+}
+
+    
 }

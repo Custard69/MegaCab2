@@ -8,6 +8,7 @@
 <html>
 <head>
     <title>Book a Ride</title>
+    <jsp:include page="customerDashboard.jsp" />
 </head>
 <body>
     <h2>Book a Ride</h2>

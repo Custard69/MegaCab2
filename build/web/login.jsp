@@ -19,5 +19,6 @@
         </form>
 
         <p>Don't have an account? <a href="register.jsp">Register here</a></p>
+        <p>login as Driver <a href="Driver/driverLogin.jsp">Driver</a></p>
     </body>
 </html>
