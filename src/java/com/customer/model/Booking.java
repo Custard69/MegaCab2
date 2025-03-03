@@ -1,5 +1,7 @@
 package com.customer.model;
 
+import java.sql.Timestamp;
+
 public class Booking {
     private int bookingId;
     private int customerId;
@@ -10,7 +12,10 @@ public class Booking {
     private double fare;
     private String status; // Pending, Assigned, Completed
     private String driverName; // New field
-    private String driverPhone; // New field
+    private String driverPhone;
+    private String carNumber;
+    private Timestamp bookingDate;
+    private int driverId;// New field
 
     // Constructor without driver details
     public Booking(int customerId, String pickupLocation, String destination, String carType, int distance, double fare, String status) {
@@ -33,6 +38,20 @@ public class Booking {
         this.distance = distance;
         this.fare = fare;
         this.status = status;
+    }
+    
+    public Booking(int bookingId, int customerId, String pickupLocation, String destination,
+                   String carType, int distance, double fare, String status, Timestamp bookingDate, int driverId) {
+        this.bookingId = bookingId;
+        this.customerId = customerId;
+        this.pickupLocation = pickupLocation;
+        this.destination = destination;
+        this.carType = carType;
+        this.distance = distance;
+        this.fare = fare;
+        this.status = status;
+        this.bookingDate = bookingDate;
+        this.driverId = driverId;
     }
 
     
@@ -67,4 +86,15 @@ public class Booking {
 
     public String getDriverPhone() { return driverPhone; }
     public void setDriverPhone(String driverPhone) { this.driverPhone = driverPhone; }
-}
+    
+    public String getCarNumber() {return carNumber;}
+    public void setCarNumber(String carNumber) {this.carNumber = carNumber; }
+    
+    public Timestamp getBookingDate() {return bookingDate;}
+    public void setBookingDate(Timestamp bookingDate) {this.bookingDate = bookingDate;}
+    
+    public int getDriverId() {return driverId;}
+    public void setCarNumber(int driverId) {this.driverId = driverId;}
+    }
+
+

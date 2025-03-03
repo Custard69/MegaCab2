@@ -120,70 +120,165 @@ public class BookingDAO {
     }
     
     public static Map<String, Object> getBookingDetails(int bookingId) {
-    Map<String, Object> bookingDetails = new HashMap<>();
+        Map<String, Object> bookingDetails = new HashMap<>();
 
-    try (Connection con = DatabaseUtil.getConnection();
-         PreparedStatement pst = con.prepareStatement(
-             "SELECT b.booking_id, b.customer_id, b.pickup_location, b.destination, " +
-             "b.car_type, b.distance, b.fare, b.status, d.name AS driver_name, d.phone AS driver_phone " +
-             "FROM bookings b " +
-             "LEFT JOIN drivers d ON b.driver_id = d.id " +
-             "WHERE b.booking_id = ?")) {
+        try (Connection con = DatabaseUtil.getConnection();
+             PreparedStatement pst = con.prepareStatement(
+                 "SELECT b.booking_id, b.customer_id, b.pickup_location, b.destination, " +
+                 "b.car_type, b.distance, b.fare, b.status, d.name AS driver_name, d.phone AS driver_phone " +
+                 "FROM bookings b " +
+                 "LEFT JOIN drivers d ON b.driver_id = d.id " +
+                 "WHERE b.booking_id = ?")) {
 
-        pst.setInt(1, bookingId);
-        ResultSet rs = pst.executeQuery();
-
-        if (rs.next()) {
-            bookingDetails.put("bookingId", rs.getInt("booking_id"));
-            bookingDetails.put("customerId", rs.getInt("customer_id"));
-            bookingDetails.put("pickupLocation", rs.getString("pickup_location"));
-            bookingDetails.put("destination", rs.getString("destination"));
-            bookingDetails.put("carType", rs.getString("car_type"));
-            bookingDetails.put("distance", rs.getInt("distance"));
-            bookingDetails.put("fare", rs.getDouble("fare"));
-            bookingDetails.put("status", rs.getString("status"));
-            bookingDetails.put("driverName", rs.getString("driver_name"));
-            bookingDetails.put("driverPhone", rs.getString("driver_phone"));
-        }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return bookingDetails;
-}
- public static Booking getBookingById(int bookingId) {
-        Booking booking = null;
-        String query = "SELECT * FROM bookings WHERE booking_id = ?";
-
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement pst = conn.prepareStatement(query)) {
             pst.setInt(1, bookingId);
-
             ResultSet rs = pst.executeQuery();
+
             if (rs.next()) {
-                // Create a Booking object from the result set
-                booking = new Booking(
-                    rs.getInt("booking_id"),
-                    rs.getInt("customer_id"),
-                    rs.getString("pickup_location"),
-                    rs.getString("destination"),
-                    rs.getString("car_type"),
-                    rs.getInt("distance"),
-                    rs.getDouble("fare"),
-                    rs.getString("status")
-                );
-                // Optionally, set driver details if available
-                booking.setDriverName(rs.getString("driver_name"));
-                booking.setDriverPhone(rs.getString("driver_phone"));
+                bookingDetails.put("bookingId", rs.getInt("booking_id"));
+                bookingDetails.put("customerId", rs.getInt("customer_id"));
+                bookingDetails.put("pickupLocation", rs.getString("pickup_location"));
+                bookingDetails.put("destination", rs.getString("destination"));
+                bookingDetails.put("carType", rs.getString("car_type"));
+                bookingDetails.put("distance", rs.getInt("distance"));
+                bookingDetails.put("fare", rs.getDouble("fare"));
+                bookingDetails.put("status", rs.getString("status"));
+                bookingDetails.put("driverName", rs.getString("driver_name"));
+                bookingDetails.put("driverPhone", rs.getString("driver_phone"));
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return booking;
+        return bookingDetails;
     }
     
-       
+    
+        public static Booking getBookingById(int bookingId) {
+           Booking booking = null;
+           Connection conn = null;
+           PreparedStatement stmt = null;
+           ResultSet rs = null;
+
+           try {
+               conn = DatabaseUtil.getConnection();
+               String sql = "SELECT b.*, d.name AS driverName, d.phone AS driverPhone, d.licenseNumber AS carNumber " +
+                            "FROM bookings b LEFT JOIN drivers d ON b.driver_id = d.id " +
+                            "WHERE b.booking_id = ?";
+               stmt = conn.prepareStatement(sql);
+               stmt.setInt(1, bookingId);
+               rs = stmt.executeQuery();
+
+               if (rs.next()) {
+                   booking = new Booking(
+                       rs.getInt("booking_id"),
+                       rs.getInt("customer_id"),
+                       rs.getString("pickup_location"),
+                       rs.getString("destination"),
+                       rs.getString("car_type"),
+                       rs.getInt("distance"),
+                       rs.getDouble("fare"),
+                       rs.getString("status")
+                   );
+                   // Set driver details
+                   booking.setDriverName(rs.getString("driverName"));
+                   booking.setDriverPhone(rs.getString("driverPhone"));
+                   booking.setCarNumber(rs.getString("carNumber")); // New field for car number
+               }
+           } catch (SQLException e) {
+               e.printStackTrace();
+           } finally {
+       //        DatabaseUtil.close(conn, stmt, rs);
+           }
+
+           return booking;
+       }
+        
+        
+//   DriverTrip Stuff
+        
+        public static Booking getCurrentTrip(int driverId) {
+            Booking booking = null;
+            try (Connection con = DatabaseUtil.getConnection();
+                 PreparedStatement pst = con.prepareStatement(
+                     "SELECT * FROM bookings WHERE driver_id = ? AND status = 'Assigned' LIMIT 1")) {
+
+                pst.setInt(1, driverId);
+                ResultSet rs = pst.executeQuery();
+
+                if (rs.next()) {
+                    booking = new Booking(
+                        rs.getInt("booking_id"),
+                        rs.getInt("customer_id"),
+                        rs.getString("pickup_location"),
+                        rs.getString("destination"),
+                        rs.getString("car_type"),
+                        rs.getInt("distance"),
+                        rs.getDouble("fare"),
+                        rs.getString("status"),
+                        rs.getTimestamp("booking_date"),
+                        rs.getInt("driver_id")
+                    );
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return booking;
+        }
+
+
+    public static boolean completeTrip(int bookingId) {
+        String query = "UPDATE bookings SET status = 'Completed' WHERE booking_id = ?";
+        try (Connection con = DatabaseUtil.getConnection();
+             PreparedStatement pst = con.prepareStatement(query)) {
+            pst.setInt(1, bookingId);
+            return pst.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    
+       public static Booking getBookingForDriver(int bookingId) {
+            Booking booking = null;
+            try (Connection conn = DatabaseUtil.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(
+                     "SELECT b.*, d.name AS driverName, d.phone AS driverPhone, d.licenseNumber AS carNumber " +
+                     "FROM bookings b LEFT JOIN drivers d ON b.driver_id = d.id " +
+                     "WHERE b.booking_id = ?")) {
+
+                stmt.setInt(1, bookingId);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    System.out.println("Debug: Booking found in database.");
+                    System.out.println("Debug: Status = " + rs.getString("status"));
+                    System.out.println("Debug: Driver Name = " + rs.getString("driverName"));
+
+                    booking = new Booking(
+                        rs.getInt("booking_id"),
+                        rs.getInt("customer_id"),
+                        rs.getString("pickup_location"),
+                        rs.getString("destination"),
+                        rs.getString("car_type"),
+                        rs.getInt("distance"),
+                        rs.getDouble("fare"),
+                        rs.getString("status")
+                    );
+                    booking.setDriverName(rs.getString("driverName"));
+                    booking.setDriverPhone(rs.getString("driverPhone"));
+                    booking.setCarNumber(rs.getString("carNumber"));
+                } else {
+                    System.out.println("Debug: No booking found with ID: " + bookingId);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return booking;
+        }
+
 
  }
     

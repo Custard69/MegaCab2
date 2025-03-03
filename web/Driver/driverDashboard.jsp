@@ -12,17 +12,41 @@
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Driver Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body>
-    <h2>Welcome, <%= driver.getName() %></h2>
-    <p>Email: <%= driver.getEmail() %></p>
-    <p>Phone: <%= driver.getPhone() %></p>
-    <p>Car Type: <%= driver.getCarType() %></p>
-    <p>Status: <%= driver.getStatus() %></p>
+<body class="bg-light">
 
-    <a href="../DriverLogoutServlet">Logout</a>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Driver Dashboard</a>
+        <a href="../DriverLogoutServlet" class="btn btn-danger">Logout</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h2>Welcome, <%= driver.getName() %></h2>
+    
+    <div class="card mt-3">
+        <div class="card-body">
+            <p><strong>Email:</strong> <%= driver.getEmail() %></p>
+            <p><strong>Phone:</strong> <%= driver.getPhone() %></p>
+            <p><strong>Car Type:</strong> <%= driver.getCarType() %></p>
+            <p><strong>Status:</strong> <%= driver.getStatus() %></p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="tripHistory.jsp" class="btn btn-primary">Trip History</a>
+        <a href="waitingForTrips.jsp" class="btn btn-success">Wait for Trips</a>
+        <a href="driverProfile.jsp" class="btn btn-warning">Profile</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

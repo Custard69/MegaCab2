@@ -35,6 +35,7 @@
             <h3>Driver Information</h3>
             <p><strong>Driver Name:</strong> <%= booking.getDriverName() %></p>
             <p><strong>Driver Phone:</strong> <%= booking.getDriverPhone() %></p>
+            <p><strong>Car Number:</strong> <%= booking.getCarNumber() != null ? booking.getCarNumber() : "Not Available" %></p>
             <button onclick="window.location.href='tel:<%= booking.getDriverPhone() %>'">Contact Driver</button>
     <%
             } else {

@@ -6,6 +6,7 @@ package com.customer.dao.driver;
 
 import com.customer.model.driver.Driver;
 import com.customer.dao.DatabaseUtil;
+import com.customer.model.Booking;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -230,6 +231,36 @@ public class DriverDAO {
     }
 
     return driver;
+}
+    
+    
+    public static List<Booking> getTripHistory(int driverId) {
+    List<Booking> tripHistory = new ArrayList<>();
+    try (Connection con = DatabaseUtil.getConnection();
+         PreparedStatement pst = con.prepareStatement(
+             "SELECT * FROM bookings WHERE driver_id = ? AND status = 'Completed' ORDER BY booking_date DESC")) {
+
+        pst.setInt(1, driverId);
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            tripHistory.add(new Booking(
+                rs.getInt("booking_id"),
+                rs.getInt("customer_id"),
+                rs.getString("pickup_location"),
+                rs.getString("destination"),
+                rs.getString("car_type"),
+                rs.getInt("distance"),
+                rs.getDouble("fare"),
+                rs.getString("status"),
+                rs.getTimestamp("booking_date"),
+                rs.getInt("driver_id")
+            ));
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return tripHistory;
 }
 
     
