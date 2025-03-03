@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Booking Summary</title>
+    <jsp:include page="customerDashboard.jsp" />
 </head>
 <body>
     <h2>Booking Summary</h2>
