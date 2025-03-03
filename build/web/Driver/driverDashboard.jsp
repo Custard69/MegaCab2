@@ -36,7 +36,7 @@
             <p><strong>Email:</strong> <%= driver.getEmail() %></p>
             <p><strong>Phone:</strong> <%= driver.getPhone() %></p>
             <p><strong>Car Type:</strong> <%= driver.getCarType() %></p>
-            <p><strong>Status:</strong> <%= driver.getStatus() %></p>
+            <p><strong>Status:</strong> <%= driver.getStatus() %></p> <!-- Displaying Driver Status -->
         </div>
     </div>
 

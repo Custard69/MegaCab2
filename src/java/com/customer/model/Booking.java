@@ -95,6 +95,12 @@ public class Booking {
     
     public int getDriverId() {return driverId;}
     public void setCarNumber(int driverId) {this.driverId = driverId;}
+    
+    private String customerName; // New field
+
+    public String getCustomerName() { return customerName; }
+    public void setCustomerName(String customerName) { this.customerName = customerName; }
+
     }
 
 
