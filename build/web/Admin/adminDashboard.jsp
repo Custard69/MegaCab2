@@ -39,30 +39,28 @@
     <!-- Sidebar Navigation -->
     <div class="sidebar">
         <h4 class="text-center">Mega City Cab</h4>
-        <a href="adminDashboard.jsp">Dashboard</a>
-        <a href="driverList.jsp">Manage Drivers</a>
-        <a href="tripRequests.jsp">Manage Trips</a>
+        <a href="AdminDashboardServlet">Dashboard</a>
+        <a href="Admin/driverList.jsp">Manage Drivers</a>
+        <a href="Admin/tripRequests.jsp">Manage Trips</a>
         <a href="#">Manage Customers</a>
         <a href="#">Admin Management</a>
     </div>
     
-    <!-- Main Content -->
-    <div class="content">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <span class="navbar-brand">Admin Panel</span>
-                <button class="btn btn-danger">Logout</button>
-            </div>
-        </nav>
-        
-        <div class="container mt-4">
+    <div class="content"><!-- Main Content -->
+            <div class="container">
+                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <span class="navbar-brand">Admin Panel</span>
+                        <button class="btn btn-danger">Logout</button>
+                    </div>
+                </nav>
             <h2>Dashboard Overview</h2>
             <div class="row">
                 <div class="col-md-4">
                     <div class="card text-white bg-primary mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Total Drivers</h5>
-                            <p class="card-text">50</p>
+                            <p class="card-text"><%= request.getAttribute("totalDrivers") %></p>
                         </div>
                     </div>
                 </div>
@@ -70,7 +68,7 @@
                     <div class="card text-white bg-warning mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Pending Trips</h5>
-                            <p class="card-text">10</p>
+                            <p class="card-text"><%= request.getAttribute("pendingTrips") %></p>
                         </div>
                     </div>
                 </div>
@@ -78,13 +76,13 @@
                     <div class="card text-white bg-success mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Completed Trips</h5>
-                            <p class="card-text">200</p>
+                            <p class="card-text"><%= request.getAttribute("completedTrips") %></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+                
 </body>
 </html>

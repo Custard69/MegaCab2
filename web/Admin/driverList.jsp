@@ -45,7 +45,7 @@
     <!-- Sidebar Navigation -->
     <div class="sidebar">
         <h4 class="text-center">Mega City Cab</h4>
-        <a href="adminDashboard.jsp">Dashboard</a>
+        <a href="../AdminDashboardServlet">Dashboard</a>
         <a href="driverList.jsp">Manage Drivers</a>
         <a href="tripRequests.jsp">Manage Trips</a>
         <a href="#">Manage Customers</a>

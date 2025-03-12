@@ -40,6 +40,20 @@ public class Booking {
         this.status = status;
     }
     
+   public Booking(int bookingId, int customerId, String pickupLocation, String destination, 
+               String carType, int distance, double fare, String status, Timestamp bookingDate) {
+            this.bookingId = bookingId;
+            this.customerId = customerId;
+            this.pickupLocation = pickupLocation;
+            this.destination = destination;
+            this.carType = carType;
+            this.distance = distance;
+            this.fare = fare;
+            this.status = status;
+            this.bookingDate = bookingDate;
+
+        }
+    
     public Booking(int bookingId, int customerId, String pickupLocation, String destination,
                    String carType, int distance, double fare, String status, Timestamp bookingDate, int driverId) {
         this.bookingId = bookingId;
@@ -53,7 +67,8 @@ public class Booking {
         this.bookingDate = bookingDate;
         this.driverId = driverId;
     }
-
+    
+  
     
 
     // Getters and Setters

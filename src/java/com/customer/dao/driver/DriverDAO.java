@@ -233,34 +233,7 @@ public class DriverDAO {
     }
 
     // Get Trip History for a Driver
-    public static List<Booking> getTripHistory(int driverId) {
-        List<Booking> tripHistory = new ArrayList<>();
-        try (Connection con = DatabaseUtil.getConnection();
-             PreparedStatement pst = con.prepareStatement("SELECT * FROM bookings WHERE driver_id = ? AND status = 'Completed' ORDER BY booking_date DESC")) {
-
-            pst.setInt(1, driverId);
-            ResultSet rs = pst.executeQuery();
-
-            while (rs.next()) {
-                tripHistory.add(new Booking(
-                    rs.getInt("booking_id"),
-                    rs.getInt("customer_id"),
-                    rs.getString("pickup_location"),
-                    rs.getString("destination"),
-                    rs.getString("car_type"),
-                    rs.getInt("distance"),
-                    rs.getDouble("fare"),
-                    rs.getString("status"),
-                    rs.getTimestamp("booking_date"),
-                    rs.getInt("driver_id")
-                ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return tripHistory;
-    }
-
+   
     // Get Assigned Driver for a Booking
     public static Driver getAssignedDriver(int bookingId) {
         Driver driver = null;
@@ -291,4 +264,21 @@ public class DriverDAO {
         }
         return driver;
     }
+    
+            public static String getDriverNameForBooking(int bookingId) {
+            String driverName = null;
+            try (Connection con = DatabaseUtil.getConnection();
+                 PreparedStatement pst = con.prepareStatement("SELECT d.name FROM drivers d JOIN bookings b ON d.id = b.driver_id WHERE b.booking_id = ?")) {
+                pst.setInt(1, bookingId);
+                try (ResultSet rs = pst.executeQuery()) {
+                    if (rs.next()) {
+                        driverName = rs.getString("name");
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return driverName;
+        }
+
 }

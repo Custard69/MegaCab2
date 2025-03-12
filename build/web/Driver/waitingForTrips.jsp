@@ -48,6 +48,8 @@
         <a href="../DriverLogoutServlet" class="btn btn-danger">Logout</a>
     </div>
 </nav>
+    <p>Driver ID: <%= driverId %></p>
+
 
 <div class="container mt-4">
     <h2>Waiting for Trip Assignments</h2>

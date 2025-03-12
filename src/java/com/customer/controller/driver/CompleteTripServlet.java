@@ -26,7 +26,7 @@ public class CompleteTripServlet extends HttpServlet {
 
     if (BookingDAO.completeTrip(bookingId)) {
         request.getSession().setAttribute("successMessage", "Trip completed successfully!");
-        response.sendRedirect("Driver/bookingHistory.jsp"); // Redirect to history
+        response.sendRedirect("TripHistoryServlet"); // Redirect to history
     } else {
         request.setAttribute("errorMessage", "Failed to complete the trip.");
         doGet(request, response);

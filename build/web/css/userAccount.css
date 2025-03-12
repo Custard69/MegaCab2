@@ -1,0 +1,233 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    
+    background-color: black;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Background Overlay with Blur & Darken Effect */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/background_1.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(8px); /* Adjust blur intensity */
+    opacity: 0.4; /* Adjust darkness */
+    z-index: -1; /* Push background behind content */
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #FFD700; /* Yellow Accent */
+}
+
+.navbar nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.btn-signin {
+    background: #FFD700;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Ensure Content Doesn't Overlap Header */
+.container, .hero {
+    margin-top: 100px; /* Push content below the header */
+}
+
+/* Hero Section */
+.hero {
+    width: 100vw;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 120px;
+}
+
+/* Hero Content */
+.hero-content {
+    max-width: 50%;
+    text-align: left;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.highlight {
+    color: #FFD700; /* Yellow Highlight */
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+/* Button Styling */
+.book-btn {
+    display: inline-block;
+    background-color: #E74C3C;
+    color: white;
+    font-size: 1.2rem;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+    margin-top: 20px;
+}
+
+.book-btn:hover {
+    background-color: #C0392B;
+}
+
+/* Discount Slide */
+.discount-slide {
+    background: rgba(255, 255, 0, 0.3);
+    padding: 40px 60px;
+    border-radius: 20px;
+    color: #333;
+    font-size: 1.5rem;
+    width: 60%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    text-align: center;
+}
+
+/* Discount Highlight */
+.discount-slide h3 {
+    font-weight: bold;
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.discount-slide h3 span {
+    font-size: 2rem;
+    color: red;
+    font-weight: bold;
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: initial;
+    display: flex;
+    padding: 0;
+    margin-right: 15%;
+    margin-bottom: 1rem;
+    margin-left: 15%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: end;
+    align-items: stretch;
+}
+
+.carousel-indicators button {
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.carousel-indicators .active {
+    opacity: 1;
+    background-color: yellow; /* Active indicator color */
+}
+
+/* Search Bar */
+.search-bar {
+    margin-top: 20px;
+}
+
+.btn-book {
+    display: inline-block;
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    background: #FFD700;
+    color: black;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-book:hover {
+    background: #FFC107;
+    transform: scale(1.1);
+}
+
+/* Hero Image */
+.hero-image {
+    position: relative;
+    width: 45%;
+}
+
+.hero-image img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Discount Tag */
+.offer-tag {
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+    background: red;
+    color: white;
+    padding: 10px 15px;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+/* Price Tag */
+.price-tag {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #FFD700;
+    color: black;
+    padding: 10px 15px;
+    font-weight: bold;
+    border-radius: 50%;
+}

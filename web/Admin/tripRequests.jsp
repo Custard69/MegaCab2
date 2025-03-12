@@ -46,7 +46,7 @@
     <!-- Sidebar Navigation -->
     <div class="sidebar">
         <h4 class="text-center">Mega City Cab</h4>
-        <a href="adminDashboard.jsp">Dashboard</a>
+        <a href="../AdminDashboardServlet">Dashboard</a>
         <a href="driverList.jsp">Manage Drivers</a>
         <a href="tripRequests.jsp">Manage Trips</a>
         <a href="#">Manage Customers</a>
@@ -111,6 +111,77 @@
                     <% } %>
                 </tbody>
             </table>
+                
+                
+                <h2>Ongoing Trip Requests</h2>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Pickup</th>
+                            <th>Destination</th>
+                            <th>Car Type</th>
+                            <th>Fare</th>
+                            <th>Assigned Driver</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            List<Booking> ongoingTrips = BookingDAO.getOngoingTrips();
+                            for (Booking trip : ongoingTrips) {
+                        %>
+                        <tr>
+                            <td><%= trip.getBookingId() %></td>
+                            <td><%= trip.getPickupLocation() %></td>
+                            <td><%= trip.getDestination() %></td>
+                            <td><%= trip.getCarType() %></td>
+                            <td>Rs <%= trip.getFare() %></td>
+                            <td>
+                                <!-- Fetch the driver's name using the new method -->
+                                <%= DriverDAO.getDriverNameForBooking(trip.getBookingId()) %>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+
+                <h2>Completed Trip Requests</h2>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Pickup</th>
+                        <th>Destination</th>
+                        <th>Car Type</th>
+                        <th>Fare</th>
+                        <th>Driver</th>
+                        <th>Completion Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        List<Booking> completedTrips = BookingDAO.getCompletedTrips();
+                        for (Booking trip : completedTrips) {
+                    %>
+                    <tr>
+                        <td><%= trip.getBookingId() %></td>
+                        <td><%= trip.getPickupLocation() %></td>
+                        <td><%= trip.getDestination() %></td>
+                        <td><%= trip.getCarType() %></td>
+                        <td>Rs <%= trip.getFare() %></td>
+                        <td>
+                            <!-- Fetch the driver's name using the new method -->
+                            <%= DriverDAO.getDriverNameForBooking(trip.getBookingId()) %>
+                        </td>
+                        <td><%= trip.getBookingDate()%></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+
+                
+                
+                
         </div>
     </div>
 
