@@ -1,62 +1,64 @@
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%
-    HttpSession userSession = request.getSession(false);
-    String customerName = (userSession != null && userSession.getAttribute("customerName") != null)
-            ? (String) userSession.getAttribute("customerName") : "Guest";
+    HttpSession sessionObj = request.getSession(false);
+    if (sessionObj != null && sessionObj.getAttribute("cusDetails") != null) {
+        List<com.customer.model.Customer> cusDetails = (List<com.customer.model.Customer>) sessionObj.getAttribute("cusDetails");
+        com.customer.model.Customer customer = cusDetails.get(0); // Assuming only one user
+
+        int customerId = customer.getCustomerId(); // ✅ Correct way to get ID
+//        out.println("Customer ID: " + customerId); // Debugging output
+//    } else {
+//        out.println("No customer in session!");
+    }
+%>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Expires", "0");
 %>
 
+
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .header {
-            background: #007BFF;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .nav-links {
-            display: flex;
-            gap: 15px;
-        }
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        .logout-btn {
-            background: red;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mega City Cab - User Dashboard</title>
+    
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
 </head>
 <body>
-    <div class="header">
-        <div>
-            <h2>Mega City Cab</h2>
-        </div>
-        <div class="nav-links">
-            <a href="useraccount.jsp">Home</a>
-            <a href="customerBooking.jsp">Book a Ride</a>
-            <a href="viewBookings.jsp">My Bookings</a>
-            <a href="help.jsp">Help</a>
-        </div>
-        <div>
-            <span>Welcome, <%= customerName %></span>
-            <form action="LogoutServlet" method="post" style="display:inline;">
-                <button type="submit" class="logout-btn">Logout</button>
+    <link rel="stylesheet" href="css/header.css">
+
+
+    <header class="navbar">
+        <div class="logo">MEGA CITY CAB</div>
+        <nav>
+            <ul>
+                <li><a href="useraccount.jsp">Home</a></li>
+                <li><a href="BookingCheckServlet">Book a Ride</a></li>
+                <li><a href="BookingHistoryServlet">Booking History</a></li>
+                
+            </ul>
+        </nav>
+        
+    
+
+
+            <form action="CustomerLogoutServlet" method="get" style="display:inline;">
+                <button type="submit" class="btn-signin">Logout</button>
             </form>
-        </div>
-    </div>
+        
+   </header>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

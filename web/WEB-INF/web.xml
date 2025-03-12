@@ -56,6 +56,26 @@
         <servlet-name>CompleteTripServlet</servlet-name>
         <servlet-class>com.customer.controller.driver.CompleteTripServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TripHistoryServlet</servlet-name>
+        <servlet-class>com.customer.controller.driver.TripHistoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookingHistoryServlet</servlet-name>
+        <servlet-class>com.customer.controller.BookingHistoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookingCheckServlet</servlet-name>
+        <servlet-class>com.customer.controller.BookingCheckServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <servlet-class>com.customer.controller.admin.AdminDashboardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerLogoutServlet</servlet-name>
+        <servlet-class>com.customer.controller.CustomerLogoutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
         <url-pattern>/log</url-pattern>
@@ -120,6 +140,26 @@
     <servlet-mapping>
         <servlet-name>CompleteTripServlet</servlet-name>
         <url-pattern>/CompleteTripServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TripHistoryServlet</servlet-name>
+        <url-pattern>/TripHistoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingHistoryServlet</servlet-name>
+        <url-pattern>/BookingHistoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingCheckServlet</servlet-name>
+        <url-pattern>/BookingCheckServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <url-pattern>/AdminDashboardServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerLogoutServlet</servlet-name>
+        <url-pattern>/CustomerLogoutServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
