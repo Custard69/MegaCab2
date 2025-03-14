@@ -15,6 +15,23 @@
             <div class="card shadow-lg">
                 <div class="card-body">
                     <h2 class="text-center">User Registration</h2>
+                    
+                    <%-- Display JavaScript alert if a message exists --%>
+                    <% 
+                        String message = (String) session.getAttribute("message");
+                        String status = (String) session.getAttribute("status");
+                        if (message != null) { 
+                    %>
+                    <script>
+                        alert("<%= message %>");
+                    </script>
+                    <% 
+                        // Clear the session attributes after displaying the message
+                        session.removeAttribute("message");
+                        session.removeAttribute("status");
+                    } 
+                    %>
+
                     <form action="reg" method="post">
                         <div class="mb-3">
                             <label class="form-label">Name</label>

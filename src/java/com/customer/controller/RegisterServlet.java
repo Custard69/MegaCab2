@@ -1,21 +1,20 @@
-             package com.customer.controller;
+package com.customer.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class RegisterServlet extends HttpServlet {
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Retrieve form parameters
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String NIC = request.getParameter("NIC");
@@ -24,17 +23,31 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String role = "customer";
 
-        // Database connection parameters
         String url = "jdbc:mysql://localhost:3306/mc";
         String user = "root";
         String pass = "admin";
-        
-        try {
-            // Load MySQL JDBC Driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish database connection
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(url, user, pass);
+
+            // Check if email or username already exists
+            String checkQuery = "SELECT * FROM customer WHERE email = ? OR username = ?";
+            PreparedStatement checkStmt = con.prepareStatement(checkQuery);
+            checkStmt.setString(1, email);
+            checkStmt.setString(2, username);
+            ResultSet rs = checkStmt.executeQuery();
+
+            HttpSession session = request.getSession();
+
+            if (rs.next()) { // If record exists
+                session.setAttribute("message", "Email or Username already exists!");
+                session.setAttribute("status", "error");
+                response.sendRedirect("register.jsp");
+                return;
+            }
+            rs.close();
+            checkStmt.close();
 
             // Insert user details into the database
             String sql = "INSERT INTO customer (name, email, NIC, phone, username, password, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -52,14 +65,21 @@ public class RegisterServlet extends HttpServlet {
             con.close();
 
             if (rowsInserted > 0) {
-                response.sendRedirect("login.jsp?message=Registration successful, please login");
+                session.setAttribute("message", "Registration successful! Please login.");
+                session.setAttribute("status", "success");
             } else {
-                response.sendRedirect("register.jsp?error=Registration failed, try again");
+                session.setAttribute("message", "Registration failed! Please try again.");
+                session.setAttribute("status", "error");
             }
+            
+            response.sendRedirect("register.jsp");
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("register.jsp?error=Something went wrong, try again");
+            HttpSession session = request.getSession();
+            session.setAttribute("message", "Something went wrong! Please try again later.");
+            session.setAttribute("status", "error");
+            response.sendRedirect("register.jsp");
         }
     }
 }

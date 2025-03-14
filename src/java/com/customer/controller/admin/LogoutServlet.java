@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 public class LogoutServlet extends HttpServlet {
 
    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Invalidate session
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -44,6 +44,7 @@ public class LogoutServlet extends HttpServlet {
         request.getSession(true).invalidate();
 
         // Redirect to login page
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("logoutSuccess.jsp");
     }
 }
+
