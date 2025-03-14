@@ -27,6 +27,7 @@ public class Booking {
         this.fare = fare;
         this.status = status;
     }
+    
 
     // Overloaded constructor with bookingId (existing)
     public Booking(int bookingId, int customerId, String pickupLocation, String destination, String carType, int distance, double fare, String status) {
@@ -39,6 +40,8 @@ public class Booking {
         this.fare = fare;
         this.status = status;
     }
+    
+    
     
    public Booking(int bookingId, int customerId, String pickupLocation, String destination, 
                String carType, int distance, double fare, String status, Timestamp bookingDate) {
@@ -66,6 +69,16 @@ public class Booking {
         this.status = status;
         this.bookingDate = bookingDate;
         this.driverId = driverId;
+    }
+    
+    public Booking(int bookingId, String pickupLocation, String destination, String carType, double fare, int driverId, Timestamp bookingDate) {
+        this.bookingId = bookingId;
+        this.pickupLocation = pickupLocation;
+        this.destination = destination;
+        this.carType = carType;
+        this.fare = fare;
+        this.driverId = driverId;
+        this.bookingDate = bookingDate;
     }
     
   
@@ -109,7 +122,7 @@ public class Booking {
     public void setBookingDate(Timestamp bookingDate) {this.bookingDate = bookingDate;}
     
     public int getDriverId() {return driverId;}
-    public void setCarNumber(int driverId) {this.driverId = driverId;}
+    public void setDriverId(int driverId) {this.driverId = driverId;}
     
     private String customerName; // New field
 

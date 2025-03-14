@@ -1,4 +1,4 @@
-package com.customer.controller;
+ package com.customer.controller;
 
 import com.customer.dao.BookingDAO;
 import java.io.IOException;
@@ -28,3 +28,4 @@ public class CheckBookingStatusServlet extends HttpServlet {
     }
 
 }
+           

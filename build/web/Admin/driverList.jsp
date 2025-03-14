@@ -58,7 +58,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <span class="navbar-brand">Admin Panel</span>
-                <button class="btn btn-danger">Logout</button>
+                <a href="../DriverLogoutServlet" class="btn btn-danger">Logout</a>
             </div>
         </nav>
 

@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<%
+    HttpSession sessionObj = request.getSession(false);
+    if (sessionObj == null || sessionObj.getAttribute("customerId") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -51,7 +58,10 @@
                  <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
                         <span class="navbar-brand">Admin Panel</span>
-                        <button class="btn btn-danger">Logout</button>
+                        <form action="LogoutServlet" method="get">
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+
                     </div>
                 </nav>
             <h2>Dashboard Overview</h2>

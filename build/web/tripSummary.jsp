@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page import="com.customer.model.Booking, com.customer.dao.BookingDAO" %>
 <%@ page session="true" %>
 <%
@@ -12,7 +13,13 @@
         return;
     }
 %>
-
+<%
+    HttpSession sessionObj = request.getSession(false);
+    if (sessionObj == null || sessionObj.getAttribute("customerId") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -138,7 +145,11 @@
                 </tr>
                 <tr>
                     <th>Date & Time</th>
-                    <td><%= booking.getBookingDate() %></td>
+                        <%
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                %>
+                <td><%= booking.getBookingDate() != null ? dateFormat.format(booking.getBookingDate()) : "N/A" %></td>
+
                 </tr>
                 <tr>
                     <th>Driver Name</th>

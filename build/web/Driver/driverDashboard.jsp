@@ -43,7 +43,7 @@
     <div class="mt-4">
         <a href="../TripHistoryServlet" class="btn btn-primary">Trip History</a>
         <a href="waitingForTrips.jsp" class="btn btn-success">Wait for Trips</a>
-        <a href="driverProfile.jsp" class="btn btn-warning">Profile</a>
+        
     </div>
 </div>
 

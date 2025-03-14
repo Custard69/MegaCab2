@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.customer.controller.admin;
 
-import com.customer.model.driver.Driver;
-import com.customer.dao.driver.DriverDAO;  
+import com.customer.service.DriverServiceFacade;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,9 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class RegisterDriverServlet extends HttpServlet {
+    private final DriverServiceFacade driverFacade = new DriverServiceFacade();
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
         System.out.println("RegisterDriverServlet called");
+
+        // Retrieve form parameters
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
@@ -25,9 +23,8 @@ public class RegisterDriverServlet extends HttpServlet {
         String licenseNumber = request.getParameter("licenseNumber");
         String password = request.getParameter("password");
 
-        Driver driver = new Driver(0, name, email, phone, carType, licenseNumber,password,  "Available");
-
-        boolean isAdded = DriverDAO.addDriver(driver);
+        // Register driver using Facade
+        boolean isAdded = driverFacade.registerDriver(name, email, phone, carType, licenseNumber, password);
 
         if (isAdded) {
             response.sendRedirect("Admin/driverList.jsp?success=Driver Added");
