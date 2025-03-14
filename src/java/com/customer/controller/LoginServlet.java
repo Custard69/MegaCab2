@@ -1,4 +1,4 @@
-package com.customer.controller;
+   package com.customer.controller;
 
 import com.customer.dao.CustomerDBUtil;
 import com.customer.model.Customer;

@@ -28,7 +28,7 @@
                     <th>Pickup Location</th>
                     <th>Destination</th>
                     <th>Status</th>
-                    <th>Fare (LKR)</th>
+                    <th>Fare (Rs)</th>
                 </tr>
             </thead>
             <tbody>

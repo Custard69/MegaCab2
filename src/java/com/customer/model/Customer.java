@@ -21,6 +21,7 @@ public class Customer {
         this.role = role;
     }
 
+   
     // ✅ Renamed to match your LoginServlet usage
     public int getCustomerId() {
         return id;

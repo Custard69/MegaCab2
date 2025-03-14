@@ -28,5 +28,5 @@ public class BookingHistoryServlet extends HttpServlet {
 
         request.setAttribute("bookingHistory", bookingHistory); // Send data to JSP
         request.getRequestDispatcher("customerBookingHistory.jsp").forward(request, response); // Forward to JSP
-    }
+    }   
 }

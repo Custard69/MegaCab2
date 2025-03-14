@@ -17,17 +17,7 @@ import java.util.Map;
 
 public class BookingDAO {
     
-    private Connection connection;
-
-    // Constructor to inject a connection (for testing)
-    public BookingDAO(Connection connection) {
-        this.connection = connection;
-    }
-
-    // Default constructor for real usage
-    public BookingDAO() throws SQLException {
-        this.connection = DatabaseUtil.getConnection(); // Keep real connection for non-test cases
-    }
+    
 
     
     // Assuming you have a connection setup method
@@ -115,28 +105,31 @@ public class BookingDAO {
 
 
        public static List<Booking> getCompletedTrips() {
-        List<Booking> trips = new ArrayList<>();
-        try (Connection con = DatabaseUtil.getConnection();
-             PreparedStatement pst = con.prepareStatement("SELECT * FROM bookings WHERE status = 'Completed'");
-             ResultSet rs = pst.executeQuery()) {
+            List<Booking> completedTrips = new ArrayList<>();
+            String sql = "SELECT booking_id, pickup_location, destination, car_type, fare, driver_id, booking_date FROM bookings WHERE status = 'Completed'";
 
-            while (rs.next()) {
-                trips.add(new Booking(
-                    rs.getInt("booking_id"),
-                    rs.getInt("customer_id"),
-                    rs.getString("pickup_location"),
-                    rs.getString("destination"),
-                    rs.getString("car_Type"),
-                    rs.getInt("distance"),
-                    rs.getDouble("fare"),
-                    rs.getString("status")
-                ));
+            try (Connection conn = DatabaseUtil.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(sql);
+                 ResultSet rs = stmt.executeQuery()) {
+
+                while (rs.next()) {
+                    // Use the constructor instead of manually setting fields
+                    Booking trip = new Booking(
+                        rs.getInt("booking_id"),
+                        rs.getString("pickup_location"),
+                        rs.getString("destination"),
+                        rs.getString("car_type"),
+                        rs.getDouble("fare"),
+                        rs.getInt("driver_id"),
+                        rs.getTimestamp("booking_date")
+                    );
+                    completedTrips.add(trip);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            return completedTrips;
         }
-        return trips;
-    }
 
 
 
@@ -405,12 +398,15 @@ public class BookingDAO {
                     booking.setDriverName(rs.getString("driver_name"));
                     booking.setDriverPhone(rs.getString("driver_phone"));
                 }
+                System.out.println("Booking Date: " + rs.getTimestamp("booking_date"));
+
 
                 bookings.add(booking);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
         return bookings;
     }
             

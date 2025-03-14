@@ -1,7 +1,9 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.customer.dao.BookingDAO, com.customer.dao.driver.DriverDAO, com.customer.model.Booking, com.customer.model.driver.Driver" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -59,7 +61,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <span class="navbar-brand">Admin Panel</span>
-                <button class="btn btn-danger">Logout</button>
+                <a href="../DriverLogoutServlet" class="btn btn-danger">Logout</a>
             </div>
         </nav>
 
@@ -173,7 +175,10 @@
                             <!-- Fetch the driver's name using the new method -->
                             <%= DriverDAO.getDriverNameForBooking(trip.getBookingId()) %>
                         </td>
-                        <td><%= trip.getBookingDate()%></td>
+                        <%
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        %>
+                        <td><%= trip.getBookingDate() != null ? dateFormat.format(trip.getBookingDate()) : "N/A" %></td>
                     </tr>
                     <% } %>
                 </tbody>

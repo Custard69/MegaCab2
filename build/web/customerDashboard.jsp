@@ -18,6 +18,13 @@
     response.setHeader("Pragma", "no-cache");
     response.setHeader("Expires", "0");
 %>
+<%
+    
+    if (sessionObj == null || sessionObj.getAttribute("customerId") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 
 
 
